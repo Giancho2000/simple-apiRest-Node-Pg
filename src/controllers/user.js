@@ -19,4 +19,23 @@ export const getUsers = async (req, res) => {
     const users = await User.findAll()
     .then(users => res.json(users))
     .catch(error => res.status(500).json({ error: error.message }));
-}
+};
+
+export const getUserById = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findByPk(id)
+    .then(user => {
+        if (user) {
+            const finalUser = {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+            res.json(finalUser);
+        } else {
+            res.status(404).json({ msg: `No user found with id ${id}` });
+        }
+    })
+    .catch(error => res.status(500).json({ error: error.message }));
+};
