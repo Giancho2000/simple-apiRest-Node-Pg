@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 
-import { createUser, getUserById, getUsers } from '../controllers/user.js';
+import { createUser, getUserById, getUsers, updateUserById } from '../controllers/user.js';
 import { existingUserByEmail } from '../helpers/evaluate-fields.js';
 import { validateFields } from '../middlewares/validate-fields.js';
 
@@ -27,9 +27,17 @@ router.get('/:id', [
 ] , getUserById );
 
 // Update user by ID
-router.put('/:id', getUsers );
+router.put('/:id',[
+    check('id', 'ID must be a number').isString(),
+    check('id','Is not valid ID').isUUID(),
+    validateFields
+] , updateUserById );
 
 // Delete user by ID
-router.delete('/:id', getUsers );
+router.delete('/:id',[
+    check('id', 'ID must be a number').isString(),
+    check('id','Is not valid ID').isUUID(),
+    validateFields
+], getUsers );
 
 export default router;
