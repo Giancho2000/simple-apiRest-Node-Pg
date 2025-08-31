@@ -4,11 +4,13 @@ import userModel from "../models/user.js";
 
 const User = userModel(sequelizeConn);
 export const createUser = async (req, res) => {
-    const { nombre, email, rol } = req.body;
+    const { name, email, role, password } = req.body;
     
     const salt = bcrypt.genSaltSync();
-    //const hashedPassword = bcrypt.hashSync(password, salt);
-    await User.create({ nombre, email, rol })
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    
+    console.log(name, email, role, hashedPassword); 
+    await User.create({ name, email, role, password:hashedPassword })
         .then(user => res.status(201).json(user))
         .catch(error => res.status(500).json({ error: error.message }));
 };

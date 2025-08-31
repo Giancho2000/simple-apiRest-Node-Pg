@@ -7,7 +7,7 @@ export default (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
@@ -16,7 +16,7 @@ export default (sequelize) => {
       unique: true,
       allowNull: false,
     },
-    rol: {
+    role: {
       type: DataTypes.ENUM("mesero", "admin", "super-admin"),
       allowNull: false,
     },

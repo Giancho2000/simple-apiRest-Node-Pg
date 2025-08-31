@@ -35,6 +35,7 @@ export default class Server {
     }
     middlewares() {
         this.app.use(express.json());
+        this.app.use( express.static('public') );
     }
     listen() {
         this.app.listen(this.port, () => {
