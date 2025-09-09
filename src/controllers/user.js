@@ -9,9 +9,10 @@ export const createUser = async (req, res) => {
     const salt = bcrypt.genSaltSync();
     const hashedPassword = bcrypt.hashSync(password, salt);
     
-    console.log(name, email, role, hashedPassword); 
     await User.create({ name, email, role, password:hashedPassword })
-        .then(user => res.status(201).json(user))
+        .then(user => res.status(201).json({
+            msg: 'User created successfully',
+            user}))
         .catch(error => res.status(500).json({ error: error.message }));
 };
 

@@ -4,6 +4,7 @@ import { startServer } from '../db/config.js';
 //  CREAMOS EL SERVIDOR
 // =====================
 import router  from '../routes/user.js';
+import authRouter from '../routes/auth.js';
 
 const userRoutes = router;
 
@@ -12,7 +13,8 @@ export default class Server {
         this.app = express();
         this.port = process.env.PORT || 3000;
         this.paths = {
-          userPath : '/api/users'
+          userPath : '/api/users',
+          authPath : '/api/auth'
         };
 
         // data base connection
@@ -32,6 +34,7 @@ export default class Server {
     routes() {
         // Definir rutas aquí
         this.app.use(this.paths.userPath, userRoutes);
+        this.app.use(this.paths.authPath, authRouter);
     }
     middlewares() {
         this.app.use(express.json());
