@@ -4,6 +4,7 @@ import { check } from 'express-validator';
 import { createUser, deleteUserById, getUserById, getUsers, updateUserById } from '../controllers/user.js';
 import { existingUserByEmail } from '../helpers/evaluate-fields.js';
 import { validateFields } from '../middlewares/validate-fields.js';
+import { validateJWT } from '../middlewares/validate-jwt.js';
 
 
 const router = Router();
@@ -28,6 +29,7 @@ router.get('/:id', [
 
 // Update user by ID
 router.put('/:id',[
+    validateJWT,
     check('id', 'ID must be a number').isString(),
     check('id','Is not valid ID').isUUID(),
     validateFields
@@ -35,6 +37,7 @@ router.put('/:id',[
 
 // Delete user by ID
 router.delete('/:id',[
+    validateJWT,
     check('id', 'ID must be a number').isString(),
     check('id','Is not valid ID').isUUID(),
     validateFields
