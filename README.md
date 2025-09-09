@@ -31,6 +31,16 @@ The application connects to a **PostgreSQL** database through **Sequelize** as t
 
 ## 📌 Postman endpoints
 -- URL Base: http://localhost:3000/api/users
+### Authentication
+- POST /api/auth/login → Create a new user
+    ```bash
+    /* Example Request (JSON) */
+    {
+      "email": "johndoe@example.com",
+      "password": "yourPassword",
+    }
+
+### Users
 - POST /api/users → Create a new user
     ```bash
     /*Example Request (JSON)*/
@@ -42,8 +52,8 @@ The application connects to a **PostgreSQL** database through **Sequelize** as t
     }
 - GET /api/users → Retrieve all users
 - GET /api/users/:id → Retrieve a user by ID
-- PUT /api/users/:id → Update a user by ID
-- DELETE /api/users/:id → Delete a user
+- PUT /api/users/:id → Update a user by ID /* Must sent token in the headers= aut-token: JWT-token */
+- DELETE /api/users/:id → Delete a user /* Must sent token in the headers= aut-token: JWT-token */
 
 
 ## 🛠️ Technologies
